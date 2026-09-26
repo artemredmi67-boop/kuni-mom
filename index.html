@@ -1,235 +1,1074 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
 
-<title>KUNI.mom Private Gallery</title>
-
-<style>
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #0b0b0b;
-  color: #fff;
-}
-
-header {
-  text-align: center;
-  padding: 30px 15px 20px;
-  background: linear-gradient(to bottom, #1a1a1a, #0b0b0b);
-}
-
-header h1 {
-  color: #ff4d88;
-  margin: 0;
-  font-size: 2em;
-}
-
-.grid {
-  max-width: 1100px;
-  margin: 30px auto;
-  padding: 0 10px;
-
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 22px;
-
-  justify-items: center;
-}
-
-.banner {
-  display: block;
-
-  width: 300px;
-  height: 250px;
-
-  border-radius: 14px;
-  overflow: hidden;
-
-  background: #111;
-
-  box-shadow: 0 6px 20px rgba(255,77,136,0.25);
-
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-
-  cursor: pointer;
-}
-
-.banner:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 12px 30px rgba(255,77,136,0.35);
-}
-
-.banner img {
-  width: 100%;
-  height: 100%;
-
-  display: block;
-
-  object-fit: cover;
-}
-
-@media (max-width: 350px) {
-  .grid {
-    grid-template-columns: 1fr;
-  }
-
-  .banner {
-    width: 100%;
-    max-width: 300px;
-  }
-}
-</style>
-</head>
-
-<body>
-
-<header>
-  <h1>Private KUNI.MOM Gallery</h1>
-</header>
-
-<div class="grid">
-
-  <a
-    href="https://stroki.top/click?o=2&a=6549&sub_id1=69x"
-    class="banner"
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, viewport-fit=cover"
   >
-    <img
-      src="https://i.postimg.cc/ZqM6rXg1/video-2026-07-17-15-53-28-2.gif"
-      alt="Banner"
-    >
-  </a>
 
-  <a
-    href="https://simal.top/click?o=3&a=6549&sub_id1=69x"
-    class="banner"
+  <!-- ============================================
+       BASIC SEO
+  ============================================= -->
+
+  <title>KUNI.MOM — Official Website</title>
+
+  <meta
+    name="description"
+    content="KUNI.MOM official website. Официальный сайт KUNI.MOM. Age confirmation is required to continue."
   >
-    <img
-      src="https://i.postimg.cc/d018ZJWC/animation-g-2.gif"
-      alt="Banner"
-    >
-  </a>
 
-  <a
-    href="https://stroki.top/click?o=2&a=6549&sub_id1=69x"
-    class="banner"
+  <meta
+    name="robots"
+    content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
   >
-    <img
-      src="https://i.postimg.cc/SsYCVDbs/video-2026-07-17-15-53-30-2.gif"
-      alt="Banner"
-    >
-  </a>
 
-  <a
-    href="https://stroki.top/click?o=2&a=6549&sub_id1=69x"
-    class="banner"
+  <meta
+    name="googlebot"
+    content="index, follow, max-image-preview:large, max-snippet:-1"
   >
-    <img
-      src="https://i.postimg.cc/SR08PCmP/video-2026-07-17-15-53-33-2.gif"
-      alt="Banner"
-    >
-  </a>
 
-  <a
-    href="https://simal.top/click?o=3&a=6549&sub_id1=69x"
-    class="banner"
+  <link
+    rel="canonical"
+    href="https://kuni.mom/"
   >
-    <img
-      src="https://i.postimg.cc/43dzHX80/animation-gi-2.gif"
-      alt="Banner"
-    >
-  </a>
-
-</div>
 
 
-<script>
+  <!-- ============================================
+       SOCIAL / OPEN GRAPH
+  ============================================= -->
 
-/* ==================================================
-   НАСТРОЙКИ
-================================================== */
+  <meta
+    property="og:type"
+    content="website"
+  >
 
-const mobileUrl =
-  "https://grzvkg.datingcorrner.com/?utm_source=da57dc555e50572d&ban=other&j1=1&s1=212364&s2=2185091";
+  <meta
+    property="og:site_name"
+    content="KUNI.MOM"
+  >
 
-const desktopUrl =
-  "https://t.me/pys365";
+  <meta
+    property="og:title"
+    content="KUNI.MOM — Official Website"
+  >
 
-const redirectDelay = 1300;
+  <meta
+    property="og:description"
+    content="Official KUNI.MOM website. Официальный сайт KUNI.MOM."
+  >
+
+  <meta
+    property="og:url"
+    content="https://kuni.mom/"
+  >
+
+  <meta
+    property="og:image"
+    content="https://i.postimg.cc/Tw1bZC6h/photo-2026-09-02-19-00-18.jpg"
+  >
+
+  <meta
+    property="og:image:alt"
+    content="KUNI.MOM official website"
+  >
 
 
-/* ==================================================
-   ANDROID / IOS
-================================================== */
+  <!-- ============================================
+       TWITTER / SOCIAL PREVIEW
+  ============================================= -->
 
-function isAndroidOrIOS() {
+  <meta
+    name="twitter:card"
+    content="summary_large_image"
+  >
 
-  const ua = navigator.userAgent || "";
-  const platform = navigator.platform || "";
+  <meta
+    name="twitter:title"
+    content="KUNI.MOM — Official Website"
+  >
 
-  /* Android */
-  if (/Android/i.test(ua)) {
-    return true;
+  <meta
+    name="twitter:description"
+    content="Official KUNI.MOM website."
+  >
+
+  <meta
+    name="twitter:image"
+    content="https://i.postimg.cc/Tw1bZC6h/photo-2026-09-02-19-00-18.jpg"
+  >
+
+
+  <!-- ============================================
+       PERFORMANCE
+  ============================================= -->
+
+  <link
+    rel="preconnect"
+    href="https://i.postimg.cc"
+    crossorigin
+  >
+
+  <link
+    rel="dns-prefetch"
+    href="//i.postimg.cc"
+  >
+
+
+  <!-- ============================================
+       STRUCTURED DATA
+  ============================================= -->
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": "https://kuni.mom/#website",
+    "url": "https://kuni.mom/",
+    "name": "KUNI.MOM",
+    "alternateName": [
+      "KUNI MOM",
+      "KUNI.mom"
+    ],
+    "description": "Official KUNI.MOM website",
+    "inLanguage": [
+      "en",
+      "ru"
+    ]
   }
+  </script>
 
-  /* iPhone / iPad / iPod */
-  if (/iPhone|iPad|iPod/i.test(ua)) {
-    return true;
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": "https://kuni.mom/#webpage",
+    "url": "https://kuni.mom/",
+    "name": "KUNI.MOM — Official Website",
+    "isPartOf": {
+      "@id": "https://kuni.mom/#website"
+    },
+    "description": "Official KUNI.MOM website. Age confirmation required.",
+    "inLanguage": [
+      "en",
+      "ru"
+    ]
   }
-
-  /*
-    Современный iPadOS иногда определяется
-    как Macintosh.
-  */
-  const isModernIPad =
-    platform === "MacIntel" &&
-    navigator.maxTouchPoints > 1;
-
-  if (isModernIPad) {
-    return true;
-  }
-
-  return false;
-}
+  </script>
 
 
-/* ==================================================
-   REDIRECT
-================================================== */
+  <style>
 
-document.addEventListener("DOMContentLoaded", function () {
+    /* ============================================
+       RESET
+    ============================================= */
 
-  const mobile = isAndroidOrIOS();
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
 
-  console.log("===== KUNI DEVICE CHECK =====");
-  console.log("UA:", navigator.userAgent);
-  console.log("PLATFORM:", navigator.platform);
-  console.log("TOUCH:", navigator.maxTouchPoints);
-  console.log("ANDROID / IOS:", mobile);
-  console.log("=============================");
 
-  setTimeout(function () {
+    html {
+      width: 100%;
+      min-height: 100%;
+      scroll-behavior: smooth;
+    }
 
-    if (mobile) {
 
-      console.log("[REDIRECT] Android/iOS -> Mobile URL");
+    body {
+      width: 100%;
+      min-height: 100%;
+      margin: 0;
 
-      window.location.replace(mobileUrl);
+      font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Arial,
+        Helvetica,
+        sans-serif;
 
-    } else {
+      color: #ffffff;
 
-      console.log("[REDIRECT] Other device -> Telegram");
+      background-color: #090909;
 
-      window.location.replace(desktopUrl);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+
+    button {
+      font: inherit;
+    }
+
+
+    /* ============================================
+       BACKGROUND
+    ============================================= */
+
+    .page {
+
+      position: relative;
+
+      width: 100%;
+
+      min-height: 100vh;
+      min-height: 100svh;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      padding:
+        max(24px, env(safe-area-inset-top))
+        max(18px, env(safe-area-inset-right))
+        max(24px, env(safe-area-inset-bottom))
+        max(18px, env(safe-area-inset-left));
+
+      overflow: hidden;
+
+      background-image:
+
+        linear-gradient(
+          180deg,
+          rgba(0, 0, 0, 0.34) 0%,
+          rgba(0, 0, 0, 0.56) 55%,
+          rgba(0, 0, 0, 0.72) 100%
+        ),
+
+        url(
+          "https://i.postimg.cc/Tw1bZC6h/photo-2026-09-02-19-00-18.jpg"
+        );
+
+      background-size: cover;
+
+      background-position: center center;
+
+      background-repeat: no-repeat;
 
     }
 
-  }, redirectDelay);
 
-});
+    .page::before {
 
-</script>
+      content: "";
+
+      position: absolute;
+
+      inset: 0;
+
+      pointer-events: none;
+
+      background:
+
+        radial-gradient(
+          circle at 50% 35%,
+          rgba(255, 255, 255, 0.06),
+          transparent 45%
+        );
+
+    }
+
+
+    /* ============================================
+       AGE CARD
+    ============================================= */
+
+    .age-card {
+
+      position: relative;
+
+      z-index: 2;
+
+      width: 100%;
+
+      max-width: 490px;
+
+      padding:
+        40px
+        32px
+        32px;
+
+      text-align: center;
+
+      background:
+        rgba(11, 11, 11, 0.76);
+
+      border:
+        1px solid
+        rgba(255, 255, 255, 0.14);
+
+      border-radius: 24px;
+
+      box-shadow:
+        0 30px 80px rgba(0, 0, 0, 0.48);
+
+      backdrop-filter:
+        blur(14px);
+
+      -webkit-backdrop-filter:
+        blur(14px);
+
+    }
+
+
+    /* ============================================
+       BRAND
+    ============================================= */
+
+    .brand {
+
+      margin:
+        0
+        0
+        8px;
+
+      color: #ff4d88;
+
+      font-size:
+        clamp(
+          38px,
+          10vw,
+          58px
+        );
+
+      font-weight: 900;
+
+      line-height: 1;
+
+      letter-spacing: 0.5px;
+
+      text-shadow:
+        0 4px 24px
+        rgba(0, 0, 0, 0.48);
+
+    }
+
+
+    .official {
+
+      margin:
+        0
+        0
+        31px;
+
+      color:
+        rgba(255, 255, 255, 0.62);
+
+      font-size: 11px;
+
+      font-weight: 700;
+
+      letter-spacing: 2.8px;
+
+      text-transform: uppercase;
+
+    }
+
+
+    /* ============================================
+       TITLE
+    ============================================= */
+
+    .age-title {
+
+      margin:
+        0
+        0
+        14px;
+
+      color: #ffffff;
+
+      font-size:
+        clamp(
+          22px,
+          5vw,
+          27px
+        );
+
+      font-weight: 750;
+
+      line-height: 1.25;
+
+    }
+
+
+    .age-title-en {
+
+      display: block;
+
+      margin-top: 8px;
+
+      color:
+        rgba(255, 255, 255, 0.78);
+
+      font-size:
+        0.78em;
+
+      font-weight: 600;
+
+    }
+
+
+    /* ============================================
+       DESCRIPTION
+    ============================================= */
+
+    .description {
+
+      max-width: 400px;
+
+      margin:
+        0
+        auto
+        27px;
+
+      color:
+        rgba(255, 255, 255, 0.70);
+
+      font-size: 14px;
+
+      line-height: 1.6;
+
+    }
+
+
+    .description-en {
+
+      display: block;
+
+      margin-top: 7px;
+
+      color:
+        rgba(255, 255, 255, 0.55);
+
+    }
+
+
+    /* ============================================
+       BUTTON
+    ============================================= */
+
+    .continue-button {
+
+      position: relative;
+
+      width: 100%;
+
+      min-height: 67px;
+
+      padding:
+        11px
+        20px;
+
+      border: 0;
+
+      border-radius: 15px;
+
+      outline: none;
+
+      color: #ffffff;
+
+      background:
+        linear-gradient(
+          135deg,
+          #ff4d88,
+          #ff296f
+        );
+
+      box-shadow:
+        0 12px 30px
+        rgba(255, 45, 115, 0.30);
+
+      cursor: pointer;
+
+      user-select: none;
+
+      -webkit-tap-highlight-color: transparent;
+
+      transition:
+        transform 160ms ease,
+        box-shadow 160ms ease,
+        filter 160ms ease;
+
+    }
+
+
+    .continue-button:hover {
+
+      transform:
+        translateY(-2px);
+
+      box-shadow:
+        0 16px 38px
+        rgba(255, 45, 115, 0.42);
+
+      filter:
+        brightness(1.04);
+
+    }
+
+
+    .continue-button:active {
+
+      transform:
+        translateY(0)
+        scale(0.985);
+
+    }
+
+
+    .continue-button:focus-visible {
+
+      outline:
+        3px solid
+        rgba(255, 255, 255, 0.8);
+
+      outline-offset: 4px;
+
+    }
+
+
+    .button-ru {
+
+      display: block;
+
+      font-size: 18px;
+
+      font-weight: 800;
+
+      line-height: 1.3;
+
+    }
+
+
+    .button-en {
+
+      display: block;
+
+      margin-top: 3px;
+
+      color:
+        rgba(255, 255, 255, 0.86);
+
+      font-size: 13px;
+
+      font-weight: 500;
+
+      line-height: 1.3;
+
+    }
+
+
+    /* ============================================
+       NOTICE
+    ============================================= */
+
+    .notice {
+
+      margin:
+        18px
+        0
+        0;
+
+      color:
+        rgba(255, 255, 255, 0.42);
+
+      font-size: 11px;
+
+      line-height: 1.5;
+
+    }
+
+
+    /* ============================================
+       INDEXABLE VISIBLE INFO
+    ============================================= */
+
+    .site-info {
+
+      margin:
+        21px
+        0
+        0;
+
+      padding-top: 18px;
+
+      border-top:
+        1px solid
+        rgba(255, 255, 255, 0.09);
+
+      color:
+        rgba(255, 255, 255, 0.34);
+
+      font-size: 10px;
+
+      line-height: 1.45;
+
+    }
+
+
+    /* ============================================
+       MOBILE
+    ============================================= */
+
+    @media (max-width: 520px) {
+
+      .page {
+
+        align-items: flex-end;
+
+        padding:
+          18px
+          15px
+          max(
+            18px,
+            env(safe-area-inset-bottom)
+          );
+
+        background-position:
+          center center;
+
+      }
+
+
+      .age-card {
+
+        padding:
+          31px
+          21px
+          25px;
+
+        border-radius: 21px;
+
+      }
+
+
+      .official {
+
+        margin-bottom: 25px;
+
+      }
+
+
+      .description {
+
+        font-size: 13px;
+
+      }
+
+
+      .continue-button {
+
+        min-height: 64px;
+
+      }
+
+    }
+
+
+    /* ============================================
+       VERY SMALL DEVICES
+    ============================================= */
+
+    @media (max-width: 340px) {
+
+      .age-card {
+
+        padding:
+          25px
+          16px
+          20px;
+
+      }
+
+
+      .brand {
+
+        font-size: 34px;
+
+      }
+
+
+      .button-ru {
+
+        font-size: 16px;
+
+      }
+
+    }
+
+
+    /* ============================================
+       REDUCED MOTION
+    ============================================= */
+
+    @media (
+      prefers-reduced-motion:
+      reduce
+    ) {
+
+      *,
+      *::before,
+      *::after {
+
+        scroll-behavior: auto !important;
+
+        transition-duration:
+          0.01ms !important;
+
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+  <main class="page">
+
+
+    <section
+      class="age-card"
+      aria-labelledby="age-title"
+    >
+
+
+      <h1 class="brand">
+        KUNI.MOM
+      </h1>
+
+
+      <p class="official">
+        Official Website
+      </p>
+
+
+      <h2
+        class="age-title"
+        id="age-title"
+      >
+
+        Вам уже исполнилось 18 лет?
+
+        <span class="age-title-en">
+
+          Are you 18 or older?
+
+        </span>
+
+      </h2>
+
+
+      <p class="description">
+
+        Для продолжения подтвердите,
+        что вам исполнилось 18 лет.
+
+        <span class="description-en">
+
+          Please confirm that you are
+          18 years of age or older
+          to continue.
+
+        </span>
+
+      </p>
+
+
+      <button
+        id="age-confirm"
+        class="continue-button"
+        type="button"
+        aria-label="Confirm age and continue"
+      >
+
+        <span class="button-ru">
+
+          Мне есть 18+ — Продолжить
+
+        </span>
+
+        <span class="button-en">
+
+          I am 18+ — Continue
+
+        </span>
+
+      </button>
+
+
+      <p class="notice">
+
+        Нажимая кнопку,
+        вы подтверждаете свой возраст.
+
+        <br>
+
+        By continuing,
+        you confirm that you are of legal age.
+
+      </p>
+
+
+      <p class="site-info">
+
+        KUNI.MOM — официальный сайт KUNI.MOM.
+        Official KUNI.MOM website.
+
+      </p>
+
+
+    </section>
+
+
+  </main>
+
+
+
+  <noscript>
+
+    <div
+      style="
+        position:fixed;
+        inset:0;
+        z-index:9999;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        padding:20px;
+        background:#090909;
+        color:white;
+        font-family:Arial,sans-serif;
+        text-align:center;
+      "
+    >
+
+      <div>
+
+        <h1>KUNI.MOM</h1>
+
+        <p>
+          JavaScript is required to continue.
+        </p>
+
+        <a
+          href="https://t.me/pys365"
+          style="
+            color:#ff4d88;
+            font-weight:bold;
+          "
+        >
+          Continue
+        </a>
+
+      </div>
+
+    </div>
+
+  </noscript>
+
+
+
+  <script>
+
+    "use strict";
+
+
+    /* ====================================================
+       DESTINATION URLS
+    ===================================================== */
+
+
+    const MOBILE_PHONE_URL =
+
+      "https://grzvkg.datingcorrner.com/?utm_source=da57dc555e50572d&ban=other&j1=1&s1=212364&s2=2185091";
+
+
+    const TELEGRAM_URL =
+
+      "https://t.me/pys365";
+
+
+
+    /* ====================================================
+       PHONE DETECTION
+
+       MOBILE LINK:
+       - Android PHONE
+       - iPhone
+       - iPod
+
+       TELEGRAM:
+       - Windows
+       - macOS
+       - Linux
+       - ChromeOS
+       - Android tablet
+       - iPad / iPadOS
+       - Smart TV
+       - Bot / crawler
+       - Unknown OS
+       - Unknown browser
+       - Any other device
+    ===================================================== */
+
+
+    function isSupportedPhone() {
+
+
+      const ua =
+
+        String(
+          navigator.userAgent || ""
+        );
+
+
+      /*
+      -----------------------------------------
+      iPhone / iPod
+
+      iPad intentionally NOT included.
+      -----------------------------------------
+      */
+
+
+      if (
+        /iPhone|iPod/i.test(ua)
+      ) {
+
+        return true;
+
+      }
+
+
+
+      /*
+      -----------------------------------------
+      Android PHONE
+
+      Android phones normally have:
+      Android + Mobile
+
+      Android tablets normally:
+      Android WITHOUT Mobile
+      -----------------------------------------
+      */
+
+
+      if (
+        /Android/i.test(ua)
+        &&
+        /Mobile/i.test(ua)
+      ) {
+
+        return true;
+
+      }
+
+
+
+      /*
+      Everything else = Telegram
+      */
+
+
+      return false;
+
+    }
+
+
+
+    /* ====================================================
+       REDIRECT
+    ===================================================== */
+
+
+    function continueAfterAgeConfirmation() {
+
+
+      const destination =
+
+        isSupportedPhone()
+
+          ? MOBILE_PHONE_URL
+
+          : TELEGRAM_URL;
+
+
+
+      /*
+      No automatic redirect.
+
+      Redirect happens ONLY
+      after user clicks the 18+ button.
+      */
+
+
+      window.location.assign(
+        destination
+      );
+
+    }
+
+
+
+    /* ====================================================
+       INITIALIZATION
+    ===================================================== */
+
+
+    document.addEventListener(
+
+      "DOMContentLoaded",
+
+      function () {
+
+
+        const button =
+
+          document.getElementById(
+            "age-confirm"
+          );
+
+
+        if (!button) {
+
+          return;
+
+        }
+
+
+
+        button.addEventListener(
+
+          "click",
+
+          continueAfterAgeConfirmation,
+
+          {
+            once: true
+          }
+
+        );
+
+
+      }
+
+    );
+
+  </script>
+
 
 </body>
 </html>
